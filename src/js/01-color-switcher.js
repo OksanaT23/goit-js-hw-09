@@ -13,6 +13,10 @@ function changeColor() {
 }
 
 startBtn.addEventListener('click', function () {
+    if (switcherId) {
+        clearInterval(switcherId);
+    }
+
     switcherId = setInterval(changeColor, 1000);
 });
 stopBtn.addEventListener('click', function () {
