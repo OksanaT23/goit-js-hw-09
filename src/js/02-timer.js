@@ -33,9 +33,16 @@ const elMinutes = document.querySelector('span[data-minutes]');
 const elSeconds = document.querySelector('span[data-seconds]');
 
 let selectedDate;
+let timerId;
 
 function countDown() {
     const differenceMs = selectedDate.getTime() - Date.now();
+
+    if (differenceMs <= 0) {
+        clearInterval(timerId);
+        return;
+    }
+
     const { days, hours, minutes, seconds } = convertMs(differenceMs);
 
     elDays.textContent = addLeadingZero(days);
@@ -71,5 +78,5 @@ flatpickr('input#datetime-picker', options);
 
 startBtn.disabled = true;
 startBtn.addEventListener('click', function () {
-    setInterval(countDown, 1000);
+   timerId = setInterval(countDown, 1000);
 });
